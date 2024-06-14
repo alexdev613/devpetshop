@@ -1,10 +1,17 @@
+import { createBrowserRouter } from 'react-router-dom';
 
-function App() {
-  return (
-    <div>
-      <h1>Olá Mundo - PetShop Dev</h1>
-    </div>
-  )
-}
+import { Home } from './pages/Home';
+import { Cart } from './pages/Cart';
 
-export default App
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/carrinho",
+    element: <Cart />
+  }
+]);
+
+export { router };
