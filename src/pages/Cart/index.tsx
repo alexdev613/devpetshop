@@ -1,7 +1,7 @@
 export function Cart() {
   return (
-    <div>
-      <h1>Página do Carrinho de Compras</h1>
+    <div className="w-full max-w-7xl mx-auto">
+      <h1 className="font-medium text-2xl text-center my-4">Carrinho de Compras🐶🐱🐤</h1>
     </div>
   )
 }
