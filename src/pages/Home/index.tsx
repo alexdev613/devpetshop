@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
+import { CartContext } from "../../contexts/CartContext";
+
 import { api } from "../../services/api";
 
-interface ProductsProps {
+export interface ProductsProps {
   id: string;
   title: string;
   description: string;
@@ -13,16 +15,23 @@ interface ProductsProps {
 }
 
 export function Home() {
+  const {addItemToCart} = useContext(CartContext);
   const [products, setProducts] = useState<ProductsProps[]>([]);
   
   useEffect(() => {
     async function getProducts() {
       const resposta = await api.get("/products");
       setProducts(resposta.data)
+      // console.log(resposta.data);
     }
 
     getProducts();
   }, []);
+
+  function handleAddItemToCart(productItem: ProductsProps) {
+    console.log(productItem.title);
+    addItemToCart(productItem)
+  }
 
   return(
     <div>
@@ -47,7 +56,9 @@ export function Home() {
                 {productItem.price.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}
               </strong>
               
-              <button className="bg-green-800 rounded-xl p-1.5 border-2 border-green-500">
+              <button
+                onClick={() => handleAddItemToCart(productItem)}
+                className="bg-green-800 rounded-xl p-1.5 border-2 border-green-500">
                 <BsCart3 size={18} color="#FFF"/>
               </button>
             </div>
