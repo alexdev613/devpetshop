@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 export function Cart() {
 
-  const { cart } = useContext(CartContext);
+  const { cart, total, addItemToCart, removeItemCart, } = useContext(CartContext);
 
   return (
     <div className="w-full max-w-7xl mx-auto border-4 border-slate-200 min-h-screen p-4">
-      <h1 className="font-medium text-2xl text-center my-4">Carrinho de Compras🐶🐱🐤</h1>
+      <h1 className="font-medium text-2xl text-center my-4 ">Carrinho de Compras🐶🐱🐤</h1>
 
       {cart.length === 0 && (
         <div className='flex flex-col items-center justify-center'>
@@ -41,13 +41,19 @@ export function Cart() {
           </strong>
 
         <div className="flex items-center justify-center gap-3">
-          <button className="bg-slate-600 w-6 h-6 rounded text-white font-medium flex items-center justify-center">
+          <button
+            className="bg-slate-600 w-6 h-6 rounded text-white font-medium flex items-center justify-center"
+            onClick={ () => removeItemCart(item) }
+          >
             -
           </button>
           <span className="font-normal text-center">
-            1
+            {item.amount}
           </span>
-          <button className="bg-slate-600 w-6 h-6 rounded text-white font-medium flex items-center justify-center">
+          <button
+            className="bg-slate-600 w-6 h-6 rounded text-white font-medium flex items-center justify-center"
+            onClick={ () => addItemToCart(item) }
+          >
             +
           </button>
         </div>
@@ -63,7 +69,7 @@ export function Cart() {
       </section>
       ))}
 
-      {cart.length !== 0 && <p className="font-extrabold mt-8">Total: R$ 1000</p>}
+      {cart.length !== 0 && <p className="font-extrabold mt-8">Total: {total}</p>}
     </div>
   )
 }
