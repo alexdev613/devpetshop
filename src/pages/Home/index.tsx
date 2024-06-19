@@ -42,7 +42,7 @@ export function Home() {
           
           {products.map( (productItem) => (
             <section key={productItem.id} className="w-full border-2 border-slate-500 rounded-lg px-1 py-4 bg-gray-100">
-            <Link to="/">
+            <Link to={`/produto/${productItem.id}`}>
               <img
                 className="w-full rounded-xl mb-2 border-2 border-gray-200/30"
                 src={productItem.cover}
