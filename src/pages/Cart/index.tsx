@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 export function Cart() {
 
-  const { cart, total, addItemToCart, removeItemCart, } = useContext(CartContext);
+  const { cart, total, addItemToCart, removeItemCart, qtdProducts } = useContext(CartContext);
 
   return (
     <div className="w-full max-w-7xl mx-auto border-4 border-slate-200 min-h-screen p-4">
       <h1 className="font-medium text-2xl text-center my-4 ">Carrinho de Compras🐶🐱🐤</h1>
 
       {cart.length === 0 && (
-        <div className='flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center min-w-7xl'>
           <p className='font-medium'>Ops, o seu carrinho está vazio...</p>
           <Link
             to="/"
@@ -69,7 +69,13 @@ export function Cart() {
       </section>
       ))}
 
-      {cart.length !== 0 && <p className="font-extrabold mt-8">Total: {total}</p>}
+      {cart.length !== 0 && (
+        <div className='w-72 mt-8 border-slate-300 border-2 py-2 px-3'>
+          <p className=''>Quantidade de produtos: {qtdProducts}</p>
+          <p className="font-bold  mb-4">Total: {total}</p>
+          <button className='rounded-full bg-green-500 border-green-200 border-2 w-full py-1 mb-2'>Fechar Pedido</button>
+        </div>
+      )}
     </div>
   )
 }

@@ -7,6 +7,7 @@ interface CartContextData {
   addItemToCart: (newItem: ProductsProps) => void;
   removeItemCart: (product: CartProps) => void;
   total: string;
+  qtdProducts: number | undefined;
 }
 
 interface CartProps {
@@ -28,6 +29,7 @@ export const CartContext = createContext({} as CartContextData);
 function CartProvider({children}: ProviderProps) {
   const [cart, setCart] = useState<CartProps[]>([]);
   const [total, setTotal] = useState("");
+  const [qtdProducts, setQtdProducts] = useState<number>()
 
   function addItemToCart(newItem: ProductsProps) {
     const indexItem = cart.findIndex(item => item.id === newItem.id)
@@ -40,6 +42,8 @@ function CartProvider({children}: ProviderProps) {
 
       setCart(cartList);
       totalResultCart(cartList);
+
+      totalProducts(cartList);
       return;
     }
 
@@ -51,6 +55,8 @@ function CartProvider({children}: ProviderProps) {
 
     setCart(products => [...products, data]);
     totalResultCart([...cart, data]);
+
+    totalProducts([...cart, data]);
   }
 
   function removeItemCart(product: CartProps) {
@@ -65,12 +71,16 @@ function CartProvider({children}: ProviderProps) {
 
       setCart(cartList);
       totalResultCart(cartList);
+
+      totalProducts(cartList);
       return; // para parar a execução do código, se não ele sai do if e continua removendo o o item diretamente com o código abaixo
     }
 
     const removeItem = cart.filter(item => item.id !== product.id);
     setCart(removeItem);
     totalResultCart(removeItem);
+
+    totalProducts(removeItem);
   }
 
   function totalResultCart(items: CartProps[]) {
@@ -80,6 +90,13 @@ function CartProvider({children}: ProviderProps) {
     setTotal(resultFormatted);
   }
 
+  function totalProducts(items: CartProps[]) {
+    let myCart = items;
+    let qtdItem = myCart.reduce( (acc, obj) => { return acc + obj.amount}, 0);
+    let qtdItems = qtdItem;
+    setQtdProducts(qtdItems);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -87,7 +104,8 @@ function CartProvider({children}: ProviderProps) {
         cartAmount: cart.length,
         addItemToCart,
         removeItemCart,
-        total
+        total,
+        qtdProducts
       }}>
       {children}
     </CartContext.Provider>

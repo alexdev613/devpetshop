@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../../services/api';
-
+import { useNavigate } from 'react-router-dom';
 import { ProductsProps } from '../Home';
 
 import { CartContext } from '../../contexts/CartContext';
@@ -12,6 +12,8 @@ import toast from 'react-hot-toast';
 export function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState<ProductsProps>();
+
+  const navigate = useNavigate();
 
   const { addItemToCart } = useContext(CartContext);
 
@@ -35,6 +37,8 @@ export function ProductDetails() {
       }
     })
     addItemToCart(product)
+
+    navigate("/carrinho");
   }
 
   return (
@@ -61,7 +65,7 @@ export function ProductDetails() {
                     })}
                   </strong>
                   <button
-                    className=" bg-green-900 rounded-xl px-4 py-1 border-2 border-green-300 flex items-center"
+                    className=" bg-green-900 rounded-xl px-4 py-1 border-2 border-green-300 flex items-center hover:bg-green-700"
                     onClick={ () => handleAddCartItem(product) }
                   >
                     <span className='text-white mr-2'>Adicionar</span>

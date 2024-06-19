@@ -33,7 +33,7 @@ export function Home() {
     console.log(productItem.title);
     toast.success("Produto adicionado no carrinho 🐾", {
       duration: 3000,
-      
+
       style: {
         borderRadius: 10,
         backgroundColor: "rgb(0, 125, 33)",
@@ -70,7 +70,7 @@ export function Home() {
               
               <button
                 onClick={() => handleAddItemToCart(productItem)}
-                className="bg-green-800 rounded-xl p-1.5 border-2 border-green-500">
+                className="bg-green-800 rounded-xl p-1.5 border-2 border-green-500 hover:bg-green-700">
                 <BsCart3 size={18} color="#FFF"/>
               </button>
             </div>
