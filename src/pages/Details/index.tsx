@@ -2,10 +2,12 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../../services/api';
 
-import { BsCart3 } from 'react-icons/bs';
 import { ProductsProps } from '../Home';
 
 import { CartContext } from '../../contexts/CartContext';
+
+import { BsCart3 } from 'react-icons/bs';
+import toast from 'react-hot-toast';
 
 export function ProductDetails() {
   const { id } = useParams();
@@ -21,6 +23,19 @@ export function ProductDetails() {
 
     getProduct()
   }, [id]);
+
+  function handleAddCartItem(product: ProductsProps) {
+    toast.success("Produto adicionado no carrinho. 🐾", {
+      style: {
+        borderRadius: 10,
+        backgroundColor: "rgb(0, 125, 33)",
+        fontWeight: 600,
+        color: "navy",
+        height: 48
+      }
+    })
+    addItemToCart(product)
+  }
 
   return (
     <div>
@@ -47,7 +62,7 @@ export function ProductDetails() {
                   </strong>
                   <button
                     className=" bg-green-900 rounded-xl px-4 py-1 border-2 border-green-300 flex items-center"
-                    onClick={ () => addItemToCart(product) }
+                    onClick={ () => handleAddCartItem(product) }
                   >
                     <span className='text-white mr-2'>Adicionar</span>
                     <BsCart3 size={20} color="#FFF"/>
