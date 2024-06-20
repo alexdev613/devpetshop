@@ -19,8 +19,16 @@ export function ProductDetails() {
 
   useEffect(() => {
     async function getProduct() {
-      const response = await api.get(`/products/${id}`);
-      setProduct(response.data);
+      try {
+        const response = await api.get(`/products/${id}`);
+        if (response.data) {
+          setProduct(response.data);
+        } else {
+          navigate("*");
+        }
+      } catch (error) {
+        navigate("*")
+      }
     }
 
     getProduct()

@@ -9,7 +9,7 @@ export function Header() {
 
   return (
     <header className="w-full px-4 bg-slate-200 ">
-      <nav className="flex items-center max-w-7xl h-24 justify-between px-5 mx-auto">
+      <nav className="flex items-center max-w-7xl h-24 justify-between px-5 mx-auto select-none">
         <Link to="/" className="font-bold text-2xl">
           <h1 className="font-extrabold">
             <span className="max-360:text-2xl text-3xl sm:text-4xl bg-gradient-to-tr from-gray-950 to-blue-400 bg-clip-text text-transparent">
