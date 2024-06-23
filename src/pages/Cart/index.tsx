@@ -1,16 +1,41 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '../../contexts/CartContext';
 import { Link } from 'react-router-dom';
+
+import { ModalOrder } from '../../components/modal/index';
 
 export function Cart() {
 
   const { cart, total, addItemToCart, removeItemCart, qtdProducts } = useContext(CartContext);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCheckout = () : void => {
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
+
   return (
     <div className="w-full max-w-7xl mx-auto">
-
+      
       <div className="w-full max-w-7xl mx-auto border-4 border-t-0 border-slate-200 p-4">
         <h1 className="font-medium text-2xl text-center my-4 ">Carrinho de Compras🐶🐱🐤</h1>
+
+        <ModalOrder
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        >
+        <h2 className='text-xl font-bold mb-4'>Pedido Realizado com Sucesso</h2>
+        <button
+          className='bg-green-500 text-slate-800 w-full px-4 py-2 mt-4 rounded'
+          onClick={closeModal}
+        >
+          Fechar
+        </button>
+      </ModalOrder>
 
         {cart.length === 0 && (
           <div className='flex flex-col items-center justify-center min-w-7xl'>
@@ -79,9 +104,16 @@ export function Cart() {
         <div className='w-72 mt-4 border-slate-300 border-2 py-2 px-3 float-right mb-10'>
           <p className=''>Quantidade de produtos: {qtdProducts}</p>
           <p className="font-bold  mb-4">Total: {total}</p>
-          <button className='rounded-full bg-green-500 border-green-200 border-2 w-full py-1 mb-2'>Fechar Pedido</button>
+          <button
+            onClick={handleCheckout}
+            className='rounded-full bg-green-500 border-green-200 border-2 w-full py-1 mb-2'
+          >
+            Fechar Pedido
+          </button>
         </div>
       )}
+
+      
     </div>
   )
 }
